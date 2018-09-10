@@ -25,6 +25,9 @@
   "contributors": [
     "Albina Ezus (https://github.com/Albinutte)"
   ],
+  "files": [
+    "/lib"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/CodeSignal/meteor-protomongo"
 }
