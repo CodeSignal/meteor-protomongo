@@ -1,6 +1,6 @@
 {
   "name": "@codesignal/mongo-async",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Extends meteor/mongo with handy async methods",
   "main": "lib/mongo.js",
   "author": "Albina Ezus <albina.ezus+npm@gmail.com>",
