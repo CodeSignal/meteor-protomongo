@@ -1,9 +1,9 @@
 {
-  "name": "@codesignal/mongo-async",
+  "name": "@codesignal/meteor-protomongo",
   "version": "0.0.1",
   "description": "Extends meteor/mongo with handy async methods",
   "main": "lib/mongo.js",
-  "author": "Albina Ezus <albina.ezus+npm@gmail.com>",
+  "author": "CodeSignal",
   "scripts": {
     "flow": "flow",
     "build": "flow-remove-types -a src/ -d lib/",
@@ -23,6 +23,8 @@
     "flow-remove-types": "^1.2.3"
   },
   "contributors": [
-    "Albina Ezus <albina.ezus+npm@gmail.com>"
-  ]
+    "Albina Ezus (https://github.com/Albinutte)"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/CodeSignal/meteor-protomongo"
 }
