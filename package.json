@@ -32,5 +32,10 @@
     "/lib"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/CodeSignal/meteor-protomongo"
+  "homepage": "https://github.com/CodeSignal/meteor-protomongo",
+  "keywords": [
+    "meteor",
+    "mongo",
+    "async"
+  ]
 }
