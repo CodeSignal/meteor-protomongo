@@ -42,7 +42,7 @@ Collection.removeAsync(selector);
 Returns a Promise that is resolved with the number of deleted documents if action was successful, and rejects with the remove error otherwise.
 
 ```js
-Collection._ensureNoIndex(selector);
+Collection.ensureNoIndex(selector);
 ```
 
 A method similar to `_ensureIndex` in case you want to make sure your database has the same indexes across different environments. You might want to add `_ensureNoIndex` calls to `Meteor.startup` similarly to `_ensureIndex`.

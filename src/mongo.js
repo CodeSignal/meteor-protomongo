@@ -60,7 +60,7 @@ function extend(Mongo: Object) {
       });
     },
 
-    _ensureNoIndex(selector) {
+    ensureNoIndex(selector) {
       try {
         this._dropIndex(selector);
       } catch (error) {
