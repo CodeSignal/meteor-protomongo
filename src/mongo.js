@@ -1,6 +1,6 @@
 function extend(Mongo: Object) {
   if (!Mongo) {
-    throw new Error('Mongo can\'t should be truthy!');
+    throw new Error('Mongo should be truthy!');
   }
 
   if (!Mongo.Collection || typeof Mongo.Collection !== 'function') {

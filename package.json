@@ -28,9 +28,6 @@
     "flow-copy-source": "^2.0.2",
     "rimraf": "^2.6.2"
   },
-  "contributors": [
-    "Albina Ezus (https://github.com/Albinutte)"
-  ],
   "files": [
     "/lib"
   ],
