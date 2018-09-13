@@ -65,7 +65,7 @@ function extend(Mongo: Object) {
         this._dropIndex(selector);
       } catch (error) {
         if (error.codeName !== 'IndexNotFound') {
-          console.error(error, 'Error when calling _ensureNoIndex');
+          console.error(error, 'Error when calling ensureNoIndex');
         }
       }
     }
