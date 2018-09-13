@@ -45,12 +45,20 @@ Returns a Promise that is resolved with the number of deleted documents if actio
 Collection.ensureNoIndex(selector);
 ```
 
-A method similar to `_ensureIndex` in case you want to make sure your database has the same indexes across different environments. You might want to add `_ensureNoIndex` calls to `Meteor.startup` similarly to `_ensureIndex`.
+A method similar to `_ensureIndex` in case you want to make sure your database has the same indexes across different environments. You might want to add `ensureNoIndex` calls to `Meteor.startup` similarly to `_ensureIndex`.
 
 ## Install
 
 ```bash
 npm install @codesignal/meteor-protomongo
+```
+
+After the package is installed, add the following few lines in a file that's going to be loaded on startup:
+```js
+import { Mongo } from 'meteor/mongo';
+import ProtoMongo from '@codesignal/meteor-protomongo';
+
+ProtoMongo.extend(Mongo);
 ```
 
 ## Contributing
@@ -60,6 +68,7 @@ If you'd like to make a contribution, please open a pull request in [package rep
 If you're so cool that you want (and have enough rights) to publish a new version, please follow the instructions below:
 * Make sure you have [NPM](https://www.npmjs.com/) account and are a member of [codesignal](https://www.npmjs.com/org/codesignal) organization;
 * Follow instructions from [npm docs](https://docs.npmjs.com/getting-started/publishing-npm-packages) to set up NPM user in your local environment;
+* Update package version, and push changes to git with `npm version <new_version>`, `git push origin master`, `git push --tags`;
 * Update package version, and publish the package with `npm publish --access public`.
 
 ## License
