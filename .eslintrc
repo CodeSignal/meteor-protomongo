@@ -1,0 +1,16 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
+  "extends": [
+    "airbnb"
+  ],
+  "rules": {
+    "comma-dangle": ["error", "never"],
+    "import/no-unresolved": "off",
+    "no-console": "off",
+    "global-require": "off",
+    "no-underscore-dangle": "off"
+  }
+}
