@@ -42,6 +42,15 @@ Collection.removeAsync(selector);
 Returns a Promise that is resolved with the number of deleted documents if action was successful, and rejects with the remove error otherwise.
 
 ```js
+Collection.getIndexes();
+```
+
+Returns a Promise that is resolved with an array of indexes for this collection. For example, you might see this for a users collection with only an index on ID:
+```js
+[{ v: 2, key: { _id: 1 }, name: '_id_', ns: 'meteor.users' }]
+```
+
+```js
 Collection.ensureNoIndex(selector);
 ```
 
