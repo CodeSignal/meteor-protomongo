@@ -60,6 +60,18 @@ function extend(Mongo: Object) {
       });
     },
 
+    getIndexes() {
+      return new Promise((resolve, reject) => {
+        this.rawCollection().indexes((error, indexes) => {
+          if (error) {
+            reject(indexes);
+          }
+
+          resolve(indexes);
+        });
+      });
+    },
+
     ensureNoIndex(selector) {
       try {
         this._dropIndex(selector);
