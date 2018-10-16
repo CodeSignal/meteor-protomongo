@@ -64,7 +64,7 @@ function extend(Mongo: Object) {
       return new Promise((resolve, reject) => {
         this.rawCollection().indexes((error, indexes) => {
           if (error) {
-            reject(indexes);
+            reject(error);
             return;
           }
 
