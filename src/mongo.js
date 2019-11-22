@@ -21,7 +21,10 @@ function extend(Mongo: Object) {
     },
 
     updateManyAsync(selector, modifier, options) {
-      return this.updateAsync(selector, modifier, Object.assign({}, options, { multi: true }));
+      return this.updateAsync(selector, modifier, {
+        ...options,
+        multi: true
+      });
     },
 
     insertAsync(document) {
