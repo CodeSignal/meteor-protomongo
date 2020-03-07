@@ -25,7 +25,7 @@
     "eslint-plugin-flowtype": "^4.5.2",
     "eslint-plugin-import": "^2.18.2",
     "flow": "^0.2.3",
-    "flow-bin": "^0.119.0",
+    "flow-bin": "^0.120.1",
     "flow-copy-source": "^2.0.9",
     "rimraf": "^3.0.0"
   },
