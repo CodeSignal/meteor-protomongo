@@ -1,3 +1,4 @@
 declare module 'meteor/mongo' {
-  declare module.exports: any
+  // $FlowFixMe: meteor/mongo doesn't have nice Flow types
+  declare module.exports: Object
 }

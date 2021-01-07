@@ -5,6 +5,18 @@
 [options]
 all=true
 module.file_ext=.js
+exact_by_default=true
 
 [libs]
 types/.*
+
+[lints]
+all=error
+
+[strict]
+nonstrict-import
+unclear-type
+unsafe-getters-setters
+untyped-import
+untyped-type-import
+sketchy-null-number

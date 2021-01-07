@@ -1,3 +1,6 @@
+// @flow strict
+
+// $FlowFixMe: meteor/mongo doesn't have nice Flow types
 function extend(Mongo: Object) {
   if (!Mongo) {
     throw new Error('Mongo should be truthy!');
