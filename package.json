@@ -6,7 +6,7 @@
   "author": "CodeSignal",
   "scripts": {
     "flow": "flow",
-    "build": "npm run build:clean && npm run build:lib",
+    "build": "npm run build:clean && npm run build:lib && npm run build:flow",
     "prepublish": "npm run build",
     "build:clean": "rimraf lib",
     "build:lib": "babel src -d lib",
