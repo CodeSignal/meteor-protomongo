@@ -51,10 +51,16 @@ Returns a Promise that is resolved with an array of indexes for this collection.
 ```
 
 ```js
+Collection.ensureIndex(selector, options);
+```
+
+Ensures an index exists. Similar to the built-in `createIndex`, but handles the case where the index already exists with different options by removing and re-adding the index with the new options. To ensure your database has the same indexes across different environments, you might want to add `ensureIndex` calls to `Meteor.startup`.
+
+```js
 Collection.ensureNoIndex(selector);
 ```
 
-A method similar to `_ensureIndex` in case you want to make sure your database has the same indexes across different environments. You might want to add `ensureNoIndex` calls to `Meteor.startup` similarly to `_ensureIndex`.
+The reverse of `ensureIndex`. You might want to call this in `Meteor.startup` to make sure an index has been removed in all of your deployed environments.
 
 ## Install
 
