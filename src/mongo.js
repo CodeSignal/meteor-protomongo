@@ -119,6 +119,11 @@ function extend(Mongo: Object) {
           console.error(error, 'Error when calling ensureNoIndex');
         }
       }
+    },
+
+    aggregate(pipeline, options) {
+        // $FlowExpectedError[object-this-reference]
+        return this.rawCollection().aggregate(pipeline, options);
     }
   });
 }
