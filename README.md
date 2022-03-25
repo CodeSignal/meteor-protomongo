@@ -62,6 +62,12 @@ Collection.ensureNoIndex(selector);
 
 The reverse of `ensureIndex`. You might want to call this in `Meteor.startup` to make sure an index has been removed in all of your deployed environments.
 
+```js
+Collection.aggregate(pipeline, ?options);
+```
+
+It's a wrapper for the mongodb [aggregate method](https://www.mongodb.com/docs/manual/reference/method/db.collection.aggregate/). This removes the need to use rawCollection() everytime.
+
 ## Install
 
 ```bash
