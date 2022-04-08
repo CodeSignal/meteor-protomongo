@@ -5,17 +5,11 @@ const ERROR_CODES = Object.freeze({
 });
 
 // $FlowFixMe: meteor/mongo doesn't have nice Flow types
-function extend(Mongo: Object) {
+function extendCollection(Mongo: Object) {
   if (!Mongo) {
     throw new Error('Mongo object must exist');
   }
 
-  extendCollection(Mongo);
-  extendCursor(Mongo);
-}
-
-// $FlowFixMe: meteor/mongo doesn't have nice Flow types
-function extendCollection(Mongo: Object) {
   if (!Mongo.Collection || typeof Mongo.Collection !== 'function') {
     throw new Error('Mongo.Collection must be a function/class');
   }
@@ -146,12 +140,22 @@ function extendCollection(Mongo: Object) {
 }
 
 // $FlowFixMe: meteor/mongo doesn't have nice Flow types
-function extendCursor(Mongo: Object) {
-  if (!Mongo.Cursor || typeof Mongo.Cursor !== 'function') {
-    throw new Error('Mongo.Cursor must be a function/class');
+function extendCursor(Meteor: Object) {
+  if (!Meteor) {
+    throw new Error('Meteor object must exist');
   }
 
-  Object.assign(Mongo.Cursor.prototype, {
+  const cursorPrototype = Object.getPrototypeOf(Meteor.users.find());
+
+  /*
+  On the server, meteor/mongo does not export its Cursor type directly.
+  So, the only reliable way to get the prototype is to actually find to create a cursor.
+   */
+  if (!cursorPrototype) {
+    throw new Error('Mongo Cursor must be a function/class');
+  }
+
+  Object.assign(cursorPrototype, {
     forEachAsync(callback, thisArg) {
       return new Promise((resolve, reject) => {
         try {
@@ -199,4 +203,7 @@ function extendCursor(Mongo: Object) {
   });
 }
 
-module.exports = { extend };
+module.exports = {
+  extendCollection,
+  extendCursor
+};

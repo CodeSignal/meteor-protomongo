@@ -120,10 +120,12 @@ npm install @codesignal/meteor-protomongo
 
 After the package is installed, add the following few lines in a file that's going to be loaded on startup:
 ```js
+import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import ProtoMongo from '@codesignal/meteor-protomongo';
 
-ProtoMongo.extend(Mongo);
+ProtoMongo.extendCollection(Mongo);
+ProtoMongo.extendCursor(Meteor);
 ```
 
 ## Building Locally
