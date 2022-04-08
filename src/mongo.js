@@ -7,14 +7,31 @@ const ERROR_CODES = Object.freeze({
 // $FlowFixMe: meteor/mongo doesn't have nice Flow types
 function extend(Mongo: Object) {
   if (!Mongo) {
-    throw new Error('Mongo should be truthy!');
+    throw new Error('Mongo object must exist');
   }
 
+  extendCollection(Mongo);
+  extendCursor(Mongo);
+}
+
+// $FlowFixMe: meteor/mongo doesn't have nice Flow types
+function extendCollection(Mongo: Object) {
   if (!Mongo.Collection || typeof Mongo.Collection !== 'function') {
-    throw new Error('Mongo.Collection is not a prototypable constructor!');
+    throw new Error('Mongo.Collection must be a function/class');
   }
 
   Object.assign(Mongo.Collection.prototype, {
+    findOneAsync(selector, options) {
+      return new Promise((resolve, reject) => {
+        try {
+          // $FlowExpectedError[object-this-reference]
+          resolve(this.findOne(selector, options));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    },
+
     updateAsync(selector, modifier, options) {
       return new Promise((resolve, reject) => {
         // $FlowExpectedError[object-this-reference]
@@ -124,6 +141,60 @@ function extend(Mongo: Object) {
     aggregate(pipeline, options) {
       // $FlowExpectedError[object-this-reference]
       return this.rawCollection().aggregate(pipeline, options);
+    }
+  });
+}
+
+// $FlowFixMe: meteor/mongo doesn't have nice Flow types
+function extendCursor(Mongo: Object) {
+  if (!Mongo.Cursor || typeof Mongo.Cursor !== 'function') {
+    throw new Error('Mongo.Cursor must be a function/class');
+  }
+
+  Object.assign(Mongo.Cursor.prototype, {
+    forEachAsync(callback, thisArg) {
+      return new Promise((resolve, reject) => {
+        try {
+          // $FlowExpectedError[object-this-reference]
+          this.forEach(callback, thisArg);
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      });
+    },
+
+    mapAsync(callback, thisArg) {
+      return new Promise((resolve, reject) => {
+        try {
+          // $FlowExpectedError[object-this-reference]
+          resolve(this.map(callback, thisArg));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    },
+
+    fetchAsync() {
+      return new Promise((resolve, reject) => {
+        try {
+          // $FlowExpectedError[object-this-reference]
+          resolve(this.fetch());
+        } catch (error) {
+          reject(error);
+        }
+      });
+    },
+
+    countAsync() {
+      return new Promise((resolve, reject) => {
+        try {
+          // $FlowExpectedError[object-this-reference]
+          resolve(this.count());
+        } catch (error) {
+          reject(error);
+        }
+      });
     }
   });
 }
