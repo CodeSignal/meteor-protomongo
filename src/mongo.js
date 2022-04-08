@@ -122,8 +122,8 @@ function extend(Mongo: Object) {
     },
 
     aggregate(pipeline, options) {
-        // $FlowExpectedError[object-this-reference]
-        return this.rawCollection().aggregate(pipeline, options);
+      // $FlowExpectedError[object-this-reference]
+      return this.rawCollection().aggregate(pipeline, options);
     }
   });
 }
