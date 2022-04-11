@@ -140,19 +140,15 @@ function extendCollection(Mongo: Object) {
 }
 
 // $FlowFixMe: meteor/mongo doesn't have nice Flow types
-function extendCursor(Meteor: Object) {
-  if (!Meteor) {
-    throw new Error('Meteor object must exist');
-  }
-
-  const cursorPrototype = Object.getPrototypeOf(Meteor.users.find());
-
+function extendCursor(anyCursor: Object) {
   /*
   On the server, meteor/mongo does not export its Cursor type directly.
   So, the only reliable way to get the prototype is to actually find to create a cursor.
-   */
-  if (!cursorPrototype) {
-    throw new Error('Mongo Cursor must be a function/class');
+  We ask the consumer to inject this so that we don't depend on any particular collection existing.
+  */
+  const cursorPrototype = anyCursor && Object.getPrototypeOf(anyCursor);
+  if (!anyCursor || !cursorPrototype) {
+    throw new Error('Cursor and its prototype must exist');
   }
 
   Object.assign(cursorPrototype, {

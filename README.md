@@ -125,8 +125,12 @@ import { Mongo } from 'meteor/mongo';
 import ProtoMongo from '@codesignal/meteor-protomongo';
 
 ProtoMongo.extendCollection(Mongo);
-ProtoMongo.extendCursor(Meteor);
+ProtoMongo.extendCursor(Meteor.users.find()); // any cursor works here
 ```
+
+To extend the Cursor prototype, we ask the consuming application to pass in any cursor instance (it does not matter the collection or the query, as long as it's from a Meteor Mongo collection driver), which can be found by calling `db.someCollection.find()`. A safe choice might be `Meteor.users.find()` (as shown in the example), since this is likely to exist in any app using `accounts-base`.
+
+This is unfortunately necessary because `meteor/mongo` does not export the `Cursor` type used on the server. So, the only reliable way to find the `Cursor` prototype is to get it from a cursor instance.
 
 ## Building Locally
 
