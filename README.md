@@ -1,15 +1,33 @@
 @codesignal/meteor-protomongo<br>[![](http://img.shields.io/npm/dm/@codesignal/meteor-protomongo.svg?style=flat)](https://www.npmjs.com/package/@codesignal/meteor-protomongo) [![npm version](https://badge.fury.io/js/%40codesignal%2Fmeteor-protomongo.svg)](https://www.npmjs.com/package/@codesignal/meteor-protomongo)
 =
 
-**Adds asynchronous methods to `meteor/mongo`.**
+**Monkey-patches to `meteor/mongo`.**
 
-*When you don't want to deal with fibers.*
+*Helpful for working with indexes and transitioning away from Fibers.*
+
+**Update, April 2022:**
+
+This proposed update to the core `meteor/mongo` package will add `*Async` versions of some of these methods by default, although the PR is currently pending and needs a new owner:
+https://github.com/meteor/meteor/pull/11605
+
+Until then, the `*Async` methods in this repo should have the same API as the proposed methods in `meteor/mongo`, so they might be helpful in getting a head start on the transition away from Fibers even before those change are released, or if you are on an earlier version of Meteor.
+
+After those changes are finalized and released, we plan to release a new version of this package that removes our own monkey-patched `*Async` methods in favor of the official ones. However, other helpers like `getIndexes`, `ensureIndex`, and `ensureNoIndex` will still be provided.
 
 ## Description
 
-This package extends `meteor/mongo` prototype with a few handy asynchronous method, and one more method you just couldn't live without. It means that it will only do something useful if your project is build with [Meteor](https://www.meteor.com/). Sorry about that!
+This package extends the `Collection` and `Cursor` prototypes from `meteor/mongo` with a few handy asynchronous methods, as well as some index-related helpers we just couldn't live without. It's intended for use only with projects built with [Meteor](https://www.meteor.com/).
 
 ### API
+
+#### Collection Prototype
+
+```js
+Collection.findOneAsync(selector, ?options);
+```
+
+Returns a Promise that is resolved with the found document, or null.
+
 
 ```js
 Collection.updateAsync(selector, modifier, ?options);
@@ -66,7 +84,33 @@ The reverse of `ensureIndex`. You might want to call this in `Meteor.startup` to
 Collection.aggregate(pipeline, ?options);
 ```
 
-It's a wrapper for the mongodb [aggregate method](https://www.mongodb.com/docs/manual/reference/method/db.collection.aggregate/). This removes the need to use rawCollection() everytime.
+Exposes the [aggregate method](https://www.mongodb.com/docs/manual/reference/method/db.collection.aggregate/). This removes the need to use `rawCollection()` every time you want to aggregate.
+
+#### Cursor Prototype
+
+```js
+Cursor.forEachAsync(callback, ?thisArg);
+```
+
+Returns a Promise that is resolved after the callback has been applied to each document.
+
+```js
+Cursor.mapAsync(callback, ?thisArg);
+```
+
+Returns a Promise that is resolved with an array of the transformed documents.
+
+```js
+Cursor.fetchAsync();
+```
+
+Returns a Promise that is resolved with an array of the found documents.
+
+```js
+Cursor.countAsync();
+```
+
+Returns a Promise that is resolved with the number of matching documents.
 
 ## Install
 
@@ -76,10 +120,31 @@ npm install @codesignal/meteor-protomongo
 
 After the package is installed, add the following few lines in a file that's going to be loaded on startup:
 ```js
+import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import ProtoMongo from '@codesignal/meteor-protomongo';
 
-ProtoMongo.extend(Mongo);
+ProtoMongo.extendCollection(Mongo);
+ProtoMongo.extendCursor(Meteor.users.find()); // any cursor works here
+```
+
+To extend the Cursor prototype, we ask the consuming application to pass in any cursor instance (it does not matter the collection or the query, as long as it's from a Meteor Mongo collection driver), which can be found by calling `db.someCollection.find()`. A safe choice might be `Meteor.users.find()` (as shown in the example), since this is likely to exist in any app using `accounts-base`.
+
+This is unfortunately necessary because `meteor/mongo` does not export the `Cursor` type used on the server. So, the only reliable way to find the `Cursor` prototype is to get it from a cursor instance.
+
+## Building Locally
+
+After checking out this repo, run...
+
+```sh
+npm install
+npm run build
+```
+
+To do local checks:
+```sh
+npm run eslint
+npm run flow
 ```
 
 ## Contributing

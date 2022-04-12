@@ -11,6 +11,7 @@
     "import/no-unresolved": "off",
     "no-console": "off",
     "global-require": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-use-before-define": ["error", { "functions": false }]
   }
 }
