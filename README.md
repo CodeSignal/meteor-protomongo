@@ -5,59 +5,27 @@
 
 *Helpful for working with indexes and transitioning away from Fibers.*
 
-**Update, April 2022:**
+**Update, November 2022:**
 
-This proposed update to the core `meteor/mongo` package will add `*Async` versions of some of these methods by default, although the PR is currently pending and needs a new owner:
-https://github.com/meteor/meteor/pull/11605
+Meteor 2.8 updated the core `meteor/mongo` package to add `*Async` versions of Mongo methods by default. See: https://github.com/meteor/meteor/pull/11605
 
-Until then, the `*Async` methods in this repo should have the same API as the proposed methods in `meteor/mongo`, so they might be helpful in getting a head start on the transition away from Fibers even before those change are released, or if you are on an earlier version of Meteor.
+Since the new core methods have identical signatures to the ones previously provided by this package, the 2.x release of this package has been updated to remove the overlapping methods.
 
-After those changes are finalized and released, we plan to release a new version of this package that removes our own monkey-patched `*Async` methods in favor of the official ones. However, other helpers like `getIndexes`, `ensureIndex`, and `ensureNoIndex` will still be provided.
+Now, the package only includes helpers related to working with indexes or aggregation.
 
 ## Description
 
-This package extends the `Collection` and `Cursor` prototypes from `meteor/mongo` with a few handy asynchronous methods, as well as some index-related helpers we just couldn't live without. It's intended for use only with projects built with [Meteor](https://www.meteor.com/).
+This package extends the `Collection` prototype from `meteor/mongo` with a few handy helpers related to indexes and aggregation. It's intended for use only with projects built with [Meteor](https://www.meteor.com/).
 
 ### API
 
 #### Collection Prototype
 
 ```js
-Collection.findOneAsync(selector, ?options);
-```
-
-Returns a Promise that is resolved with the found document, or null.
-
-
-```js
-Collection.updateAsync(selector, modifier, ?options);
-```
-
-Returns a Promise that is resolved with the number of updated documents if the update is successful, or rejects with an error if there is one.
-
-```js
 Collection.updateManyAsync(selector, modifier, ?options);
 ```
 
 Same as `Collection.updateAsync`; passes `{ multi: true }` in addition to the passed `options`.
-
-```js
-Collection.insertAsync(document);
-```
-
-Returns a Promise that is resolved with document ID if insert was successful, and rejects with the insert error otherwise.
-
-```js
-Collection.upsertAsync(query, modifier);
-```
-
-Returns a Promise that is resolved with the number of affected documents if upsert was successful, and rejects with the upsert error otherwise.
-
-```js
-Collection.removeAsync(selector);
-```
-
-Returns a Promise that is resolved with the number of deleted documents if action was successful, and rejects with the remove error otherwise.
 
 ```js
 Collection.getIndexes();
@@ -86,32 +54,6 @@ Collection.aggregate(pipeline, ?options);
 
 Exposes the [aggregate method](https://www.mongodb.com/docs/manual/reference/method/db.collection.aggregate/). This removes the need to use `rawCollection()` every time you want to aggregate.
 
-#### Cursor Prototype
-
-```js
-Cursor.forEachAsync(callback, ?thisArg);
-```
-
-Returns a Promise that is resolved after the callback has been applied to each document.
-
-```js
-Cursor.mapAsync(callback, ?thisArg);
-```
-
-Returns a Promise that is resolved with an array of the transformed documents.
-
-```js
-Cursor.fetchAsync();
-```
-
-Returns a Promise that is resolved with an array of the found documents.
-
-```js
-Cursor.countAsync();
-```
-
-Returns a Promise that is resolved with the number of matching documents.
-
 ## Install
 
 ```bash
@@ -120,17 +62,11 @@ npm install @codesignal/meteor-protomongo
 
 After the package is installed, add the following few lines in a file that's going to be loaded on startup:
 ```js
-import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import ProtoMongo from '@codesignal/meteor-protomongo';
 
 ProtoMongo.extendCollection(Mongo);
-ProtoMongo.extendCursor(Meteor.users.find()); // any cursor works here
 ```
-
-To extend the Cursor prototype, we ask the consuming application to pass in any cursor instance (it does not matter the collection or the query, as long as it's from a Meteor Mongo collection driver), which can be found by calling `db.someCollection.find()`. A safe choice might be `Meteor.users.find()` (as shown in the example), since this is likely to exist in any app using `accounts-base`.
-
-This is unfortunately necessary because `meteor/mongo` does not export the `Cursor` type used on the server. So, the only reliable way to find the `Cursor` prototype is to get it from a cursor instance.
 
 ## Building Locally
 
@@ -144,7 +80,6 @@ npm run build
 To do local checks:
 ```sh
 npm run eslint
-npm run flow
 ```
 
 ## Contributing
