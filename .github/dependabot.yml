@@ -6,8 +6,3 @@ updates:
     interval: daily
     time: "13:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: eslint-plugin-flowtype
-    versions:
-    - 5.2.1
-    - 5.2.2
