@@ -9,7 +9,7 @@
 
 Meteor 2.8 updated the core `meteor/mongo` package to add `*Async` versions of Mongo methods by default. See: https://github.com/meteor/meteor/pull/11605
 
-Since the new core methods have identical signatures to the ones previously provided by this package, the 2.x release of this package has been updated to remove the overlapping methods.
+Since the new core methods have identical signatures to the ones previously provided by this package, the 3.x release of this package has been updated to remove the overlapping methods.
 
 Now, the package only includes helpers related to working with indexes or aggregation.
 
@@ -86,11 +86,11 @@ npm run eslint
 
 If you'd like to make a contribution, please open a pull request in [package repository](https://github.com/CodeSignal/meteor-protomongo).
 
-If you're so cool that you want (and have enough rights) to publish a new version, please follow the instructions below:
+If you want (and have the right permissions) to publish a new version, please follow the instructions below:
 * Make sure you have [NPM](https://www.npmjs.com/) account and are a member of [codesignal](https://www.npmjs.com/org/codesignal) organization;
 * Follow instructions from [npm docs](https://docs.npmjs.com/getting-started/publishing-npm-packages) to set up NPM user in your local environment;
-* Update package version, and push changes to git with `npm version <new_version>`, `git push origin master`, `git push --tags`;
-* Update package version, and publish the package with `npm publish --access public`.
+* Update package version and push changes to git by running these commands: `npm version <new_version>`, `git push origin master`, `git push --tags`;
+* Publish the updated package with `npm publish --access public`.
 
 ## License
 
