@@ -1,8 +1,9 @@
 {
   "name": "@codesignal/meteor-protomongo",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Extends meteor/mongo with handy async methods",
   "main": "lib/mongo.js",
+  "types": "src/mongo.d.ts",
   "author": "CodeSignal",
   "scripts": {
     "eslint": "eslint --max-warnings 0 --ignore-path .gitignore --ext .js --ext .jsx src/",
@@ -17,6 +18,7 @@
     "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-transform-spread": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
+    "@types/meteor": "^2.9.6",
     "babel-preset-minify": "^0.5.1",
     "eslint": "^8.13.0",
     "eslint-config-airbnb": "^19.0.0",
