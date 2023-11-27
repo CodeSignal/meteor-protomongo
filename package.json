@@ -3,11 +3,11 @@
   "version": "3.1.0",
   "description": "Extends meteor/mongo with handy async methods",
   "main": "lib/mongo.js",
-  "types": "src/mongo.d.ts",
+  "types": "lib/mongo.d.ts",
   "author": "CodeSignal",
   "scripts": {
     "eslint": "eslint --max-warnings 0 --ignore-path .gitignore --ext .js --ext .jsx src/",
-    "build": "npm run build:clean && npm run build:lib",
+    "build": "npm run build:clean && npm run build:lib && cp -f src/mongo.d.ts lib/mongo.d.ts",
     "prepublish": "npm run build",
     "build:clean": "rimraf lib",
     "build:lib": "babel src -d lib"
