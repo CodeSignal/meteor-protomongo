@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - npm-package-deploy
 
 jobs:
   publish-github:
