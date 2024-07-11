@@ -26,9 +26,6 @@ jobs:
 
       - name: Publish package to GitHub Package Registry
         run: echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} > .npmrc && npm publish --registry=https://npm.pkg.github.com
-
-      - name: Asserts NPM token to not be empty
-        run: bash -c '[ -z "${{ secrets.NPM_TOKEN }}" ] && { echo "token is not set"; exit 1; }'
       
       - name: Publish package to NPM
         run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} > .npmrc && npm publish --registry=https://registry.npmjs.org
