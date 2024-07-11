@@ -28,4 +28,4 @@ jobs:
         run: echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} > .npmrc && npm publish --registry=https://npm.pkg.github.com
       
       - name: Publish package to NPM
-        run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} > .npmrc && npm publish --registry=https://registry.npmjs.org
+        run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_BOTTY_TOKEN }} > .npmrc && npm publish --registry=https://registry.npmjs.org
