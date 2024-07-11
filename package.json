@@ -1,6 +1,6 @@
 {
   "name": "@codesignal/meteor-protomongo",
-  "version": "3.1.1",
+  "version": "3.1.1-beta.2",
   "description": "Extends meteor/mongo with handy async methods",
   "main": "lib/mongo.js",
   "types": "lib/mongo.d.ts",
