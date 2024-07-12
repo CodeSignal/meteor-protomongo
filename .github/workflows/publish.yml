@@ -16,7 +16,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '14'
-          registry-url: 'https://npm.pkg.github.com'
 
       - name: Install dependencies
         run: npm ci
@@ -24,7 +23,8 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: Publish package
-        run: npm publish --registry=https://npm.pkg.github.com
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish package to GitHub Package Registry
+        run: echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} > .npmrc && npm publish --registry=https://npm.pkg.github.com
+      
+      - name: Publish package to NPM
+        run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_BOTTY_TOKEN }} > .npmrc && npm publish --registry=https://registry.npmjs.org
